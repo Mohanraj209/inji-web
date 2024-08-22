@@ -18,7 +18,7 @@
     
   jobs:
     inji-web-test:
-      uses: mosip/kattu/.github/workflows/browserstack-web.yml@master-java21
+      uses: mohanraj209/kattu/.github/workflows/browserstack-web.yml@master-java21
       with:
         SERVICE_LOCATION: inji-web-test
         BUILD_ARTIFACT: test-output
