@@ -43,6 +43,9 @@
         with:
           name: test-reports
           path: inji-web-test/test-output
+
+      - name: Set Repository Name
+        run: echo "REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV          
           
       - name: Upload to S3
         if: success() || failure()
@@ -51,7 +54,6 @@
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "ap-south-1" 
           S3_BUCKET: "inji-stack"
-          S3_OBJECT_KEY: "$REPO_NAME"
+          S3_OBJECT_KEY: ${{ env.REPO_NAME }}
         run: |
-          echo "REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)"
           aws s3 cp inji-web-test/test-output s3://$S3_BUCKET/$S3_OBJECT_KEY/ --recursive                      
